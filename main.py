@@ -1,6 +1,7 @@
 from modele.ARIMA import prognozuj_arima
 from pliki_operacje.wczytanie_xlsx import wybor_kolumn
 from pliki_operacje.zapis_xlsx import zapisz_prognoze
+from pliki_operacje.generowanie_wykresu import zapisz_wykres
 
 
 
@@ -14,12 +15,12 @@ def main() -> None:
         # 2. Generowanie prognozy
         prognoza = prognozuj_arima(df, df_przyszle, horyzont)
 
-        # 3. Zapis do pliku Excel
+        # 3. Zapis wyników (Tabela .xlsx oraz Wykres .png)
         zapisz_prognoze(df, prognoza, nazwa_modelu="ARIMA", horyzont=horyzont)
+        zapisz_wykres(df, prognoza, nazwa_modelu="ARIMA", horyzont=horyzont)
 
     print("\n--- Zakończono działanie programu ---")
 
 
-# TEN FRAGMENT JEST NIEZBĘDNY DO URUCHOMIENIA:
 if __name__ == "__main__":
     main()
