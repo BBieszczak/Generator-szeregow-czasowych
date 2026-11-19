@@ -3,6 +3,9 @@ from modele.ARIMA import prognozuj_arima
 from modele.ARDL import prognozuj_ardl
 from modele.BTST import prognozuj_btst
 from modele.CROSTON import prognozuj_croston
+from modele.DHR import prognozuj_dhr
+from modele.ETS import prognozuj_ets
+from modele.GAM import prognozuj_gam
 
 
 
@@ -55,13 +58,13 @@ def main() -> None:
             prognoza = prognozuj_croston(df, df_przyszle, horyzont)
 
         case "DHR":
-            print(f"\nUruchamianie modelu {wybor}... (Wymaga uzupełnienia pliku {wybor}.py)")
+            prognoza = prognozuj_dhr(df, df_przyszle, horyzont)
 
         case "ETS":
-            print(f"\nUruchamianie modelu {wybor}... (Wymaga uzupełnienia pliku {wybor}.py)")
+            prognoza = prognozuj_ets(df, df_przyszle, horyzont)
 
         case "GAM":
-            print(f"\nUruchamianie modelu {wybor}... (Wymaga uzupełnienia pliku {wybor}.py)")
+            prognoza = prognozuj_gam(df, df_przyszle, horyzont)
 
         case "GAMLSS":
             print(f"\nUruchamianie modelu {wybor}... (Wymaga uzupełnienia pliku {wybor}.py)")
@@ -108,7 +111,7 @@ def main() -> None:
         zapisz_wykres(df, prognoza, nazwa_modelu, horyzont)
         print(f"\nGenerowanie plików dla modelu {nazwa_modelu} zakończone pomyślnie.")
     else:
-        if wybor in ["ARIMA", "ARDL", "BTST", "CROSTON"]:  # Lista gotowych modeli
+        if wybor in ["ARIMA", "ARDL", "BTST", "CROSTON", "DHR", "ETS", "GAM"]:  # Lista gotowych modeli
             print("\nWystąpił problem z wygenerowaniem prognozy.")
         else:
             print(f"\nModel {wybor} nie wygenerował danych, ponieważ jego logika nie została jeszcze napisana.")
