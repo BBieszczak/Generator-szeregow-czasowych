@@ -1,15 +1,15 @@
 import pandas as pd
-from statsmodels.tsa.exponential_smoothing.ets import ETSModel
+from statsmodels.tsa.holtwinters import ExponentialSmoothing
 
 
 def prognozuj_ets(df: pd.DataFrame, df_przyszle: pd.DataFrame | None, horyzont: int) -> pd.Series:
+    print("\n--- Trenowanie modelu ETS (Holt-Winters) ---")
     y = df.iloc[:, 0]
 
-    print("\n--- Trenowanie modelu ETS ---")
-    model = ETSModel(y, error="add", trend="add")
-    dopasowany_model = model.fit(disp=False)
+    model = ExponentialSmoothing(y, trend="add")
+    dopasowany_model = model.fit()
 
-    prognoza_hist = dopasowany_model.predict(start=df.index[0], end=df.index[-1])
+    prognoza_hist = dopasowany_model.fittedvalues
     prognoza_przyszlosc = dopasowany_model.forecast(steps=horyzont)
 
     return pd.concat([prognoza_hist, prognoza_przyszlosc])
