@@ -1,5 +1,5 @@
 import pandas as pd
-from pliki_operacje.bledy import poprawnosc_nazwy_pliku, wartosc_kolumny
+from pliki_operacje.wyjatki import poprawnosc_nazwy_pliku, wartosc_kolumny
 
 
 # --- 1. POBIERANIE DANYCH OD UŻYTKOWNIKA ---
