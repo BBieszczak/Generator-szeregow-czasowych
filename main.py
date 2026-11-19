@@ -1,5 +1,6 @@
 from pliki_operacje import wybor_kolumn, zapisz_prognoze, zapisz_wykres
 from modele.ARIMA import prognozuj_arima
+from modele.ARDL import prognozuj_ardl
 
 
 
@@ -24,7 +25,15 @@ def main() -> None:
     print(" 4. CROSTON     9. GRU         14. SARIMAX    19. XG_BOOST")
     print(" 5. DHR        10. LSTM        15. STLS")
 
-    wybor = input("\nWpisz nazwę modelu, którego chcesz użyć (np. ARIMA): ").strip().upper()
+    modele_mapa = {
+        "1": "ARIMA", "2": "ARDL", "3": "BTST", "4": "CROSTON", "5": "DHR",
+        "6": "ETS", "7": "GAM", "8": "GAMLSS", "9": "GRU", "10": "LSTM",
+        "11": "NNAR", "12": "PROPHET", "13": "SARIMA", "14": "SARIMAX",
+        "15": "STLS", "16": "STS", "17": "TFT", "18": "THETA", "19": "XG_BOOST",
+    }
+
+    wybor = input("\nWpisz nazwę lub numer modelu (np. ARIMA lub 1): ").strip().upper()
+    wybor = modele_mapa.get(wybor.rstrip("."), wybor)
 
     prognoza = None
     nazwa_modelu = wybor
@@ -35,7 +44,7 @@ def main() -> None:
             prognoza = prognozuj_arima(df, df_przyszle, horyzont)
 
         case "ARDL":
-            print(f"\nUruchamianie modelu {wybor}... (Wymaga uzupełnienia pliku {wybor}.py)")
+            prognoza = prognozuj_ardl(df, df_przyszle, horyzont)
 
         case "BTST":
             print(f"\nUruchamianie modelu {wybor}... (Wymaga uzupełnienia pliku {wybor}.py)")
@@ -97,7 +106,7 @@ def main() -> None:
         zapisz_wykres(df, prognoza, nazwa_modelu, horyzont)
         print(f"\nGenerowanie plików dla modelu {nazwa_modelu} zakończone pomyślnie.")
     else:
-        if wybor in ["ARIMA"]:  # Lista gotowych modeli
+        if wybor in ["ARIMA", "ARDL"]:  # Lista gotowych modeli
             print("\nWystąpił problem z wygenerowaniem prognozy.")
         else:
             print(f"\nModel {wybor} nie wygenerował danych, ponieważ jego logika nie została jeszcze napisana.")

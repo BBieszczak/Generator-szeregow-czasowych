@@ -43,8 +43,8 @@ def buduj_szereg_historyczny(sciezka, czas, y, regresory, jednostka):
 
     # Zamiana przecinków na kropki (jeśli dane pobrały się jako tekst)
     for kol in df.columns:
-        if df[kol].dtype == object:
-            df[kol] = df[kol].astype(str).str.replace(" ", "").str.replace(",", ".")
+        if not pd.api.types.is_numeric_dtype(df[kol]):
+            df[kol] = df[kol].astype(str).str.replace(" ", "").str.replace("\xa0", "").str.replace(",", ".")
         df[kol] = pd.to_numeric(df[kol])
 
     return df
