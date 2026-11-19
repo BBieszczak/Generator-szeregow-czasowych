@@ -1,6 +1,8 @@
 from pliki_operacje import wybor_kolumn, zapisz_prognoze, zapisz_wykres
 from modele.ARIMA import prognozuj_arima
 from modele.ARDL import prognozuj_ardl
+from modele.BTST import prognozuj_btst
+from modele.CROSTON import prognozuj_croston
 
 
 
@@ -47,10 +49,10 @@ def main() -> None:
             prognoza = prognozuj_ardl(df, df_przyszle, horyzont)
 
         case "BTST":
-            print(f"\nUruchamianie modelu {wybor}... (Wymaga uzupełnienia pliku {wybor}.py)")
+            prognoza = prognozuj_btst(df, df_przyszle, horyzont)
 
         case "CROSTON":
-            print(f"\nUruchamianie modelu {wybor}... (Wymaga uzupełnienia pliku {wybor}.py)")
+            prognoza = prognozuj_croston(df, df_przyszle, horyzont)
 
         case "DHR":
             print(f"\nUruchamianie modelu {wybor}... (Wymaga uzupełnienia pliku {wybor}.py)")
@@ -106,7 +108,7 @@ def main() -> None:
         zapisz_wykres(df, prognoza, nazwa_modelu, horyzont)
         print(f"\nGenerowanie plików dla modelu {nazwa_modelu} zakończone pomyślnie.")
     else:
-        if wybor in ["ARIMA", "ARDL"]:  # Lista gotowych modeli
+        if wybor in ["ARIMA", "ARDL", "BTST", "CROSTON"]:  # Lista gotowych modeli
             print("\nWystąpił problem z wygenerowaniem prognozy.")
         else:
             print(f"\nModel {wybor} nie wygenerował danych, ponieważ jego logika nie została jeszcze napisana.")
