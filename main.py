@@ -12,6 +12,12 @@ from modele.LSTM import prognozuj_lstm
 from modele.NNAR import prognozuj_nnar
 from modele.PROPHET import prognozuj_prophet
 from modele.SARIMA import prognozuj_sarima
+from modele.SARIMAX import prognozuj_sarimax
+from modele.STLS import prognozuj_stls
+from modele.STS import prognozuj_sts
+from modele.TFT import prognozuj_tft
+from modele.THETA import prognozuj_theta
+from modele.XG_Boost import prognozuj_xgboost
 
 
 
@@ -91,22 +97,22 @@ def main() -> None:
             prognoza = prognozuj_sarima(df, df_przyszle, horyzont)
 
         case "SARIMAX":
-            print(f"\nUruchamianie modelu {wybor}... (Wymaga uzupełnienia pliku {wybor}.py)")
+            prognoza = prognozuj_sarimax(df, df_przyszle, horyzont)
 
         case "STLS":
-            print(f"\nUruchamianie modelu {wybor}... (Wymaga uzupełnienia pliku {wybor}.py)")
+            prognoza = prognozuj_stls(df, df_przyszle, horyzont)
 
         case "STS":
-            print(f"\nUruchamianie modelu {wybor}... (Wymaga uzupełnienia pliku {wybor}.py)")
+            prognoza = prognozuj_sts(df, df_przyszle, horyzont)
 
         case "TFT":
-            print(f"\nUruchamianie modelu {wybor}... (Wymaga uzupełnienia pliku {wybor}.py)")
+            prognoza = prognozuj_tft(df, df_przyszle, horyzont)
 
         case "THETA":
-            print(f"\nUruchamianie modelu {wybor}... (Wymaga uzupełnienia pliku {wybor}.py)")
+            prognoza = prognozuj_theta(df, df_przyszle, horyzont)
 
         case "XG_BOOST":
-            print(f"\nUruchamianie modelu {wybor}... (Wymaga uzupełnienia pliku {wybor}.py)")
+            prognoza = prognozuj_xgboost(df, df_przyszle, horyzont)
 
         case _:
             print(f"\nBłąd: Nie rozpoznano modelu '{wybor}'. Upewnij się, że nazwa została wpisana poprawnie.")
@@ -117,7 +123,7 @@ def main() -> None:
         zapisz_wykres(df, prognoza, nazwa_modelu, horyzont)
         print(f"\nGenerowanie plików dla modelu {nazwa_modelu} zakończone pomyślnie.")
     else:
-        if wybor in ["ARIMA", "ARDL", "BTST", "CROSTON", "DHR", "ETS", "GAM", "GAMLSS", "GRU", "LSTM", "NNAR", "PROPHET", "SARIMA"]:  # Lista gotowych modeli
+        if wybor in ["ARIMA", "ARDL", "BTST", "CROSTON", "DHR", "ETS", "GAM", "GAMLSS", "GRU", "LSTM", "NNAR", "PROPHET", "SARIMA", "SARIMAX", "STLS", "STS", "TFT", "THETA", "XG_BOOST"]:  # Lista gotowych modeli
             print("\nWystąpił problem z wygenerowaniem prognozy.")
         else:
             print(f"\nModel {wybor} nie wygenerował danych, ponieważ jego logika nie została jeszcze napisana.")
