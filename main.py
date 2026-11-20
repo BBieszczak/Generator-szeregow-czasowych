@@ -9,6 +9,9 @@ from modele.GAM import prognozuj_gam
 from modele.GAMLSS import prognozuj_gamlss
 from modele.GRU import prognozuj_gru
 from modele.LSTM import prognozuj_lstm
+from modele.NNAR import prognozuj_nnar
+from modele.PROPHET import prognozuj_prophet
+from modele.SARIMA import prognozuj_sarima
 
 
 
@@ -79,13 +82,13 @@ def main() -> None:
             prognoza = prognozuj_lstm(df, df_przyszle, horyzont)
 
         case "NNAR":
-            print(f"\nUruchamianie modelu {wybor}... (Wymaga uzupełnienia pliku {wybor}.py)")
+            prognoza = prognozuj_nnar(df, df_przyszle, horyzont)
 
         case "PROPHET":
-            print(f"\nUruchamianie modelu {wybor}... (Wymaga uzupełnienia pliku {wybor}.py)")
+            prognoza = prognozuj_prophet(df, df_przyszle, horyzont)
 
         case "SARIMA":
-            print(f"\nUruchamianie modelu {wybor}... (Wymaga uzupełnienia pliku {wybor}.py)")
+            prognoza = prognozuj_sarima(df, df_przyszle, horyzont)
 
         case "SARIMAX":
             print(f"\nUruchamianie modelu {wybor}... (Wymaga uzupełnienia pliku {wybor}.py)")
@@ -114,7 +117,7 @@ def main() -> None:
         zapisz_wykres(df, prognoza, nazwa_modelu, horyzont)
         print(f"\nGenerowanie plików dla modelu {nazwa_modelu} zakończone pomyślnie.")
     else:
-        if wybor in ["ARIMA", "ARDL", "BTST", "CROSTON", "DHR", "ETS", "GAM", "GAMLSS", "GRU", "LSTM"]:  # Lista gotowych modeli
+        if wybor in ["ARIMA", "ARDL", "BTST", "CROSTON", "DHR", "ETS", "GAM", "GAMLSS", "GRU", "LSTM", "NNAR", "PROPHET", "SARIMA"]:  # Lista gotowych modeli
             print("\nWystąpił problem z wygenerowaniem prognozy.")
         else:
             print(f"\nModel {wybor} nie wygenerował danych, ponieważ jego logika nie została jeszcze napisana.")
