@@ -17,5 +17,11 @@ def test_zapisz_prognoze(tmp_path):
     assert plik.exists()
 
     zapisany = pd.read_excel(plik, index_col=0)
-    assert list(zapisany.columns) == ["Wartość rzeczywista", "Predykcja"]
+    assert list(zapisany.columns) == [
+        "Wartość rzeczywista",
+        "Predykcja",
+        "Dolna granica (95%)",
+        "Górna granica (95%)",
+    ]
     assert len(zapisany) == 5
+    assert not pd.isna(zapisany.loc[daty_pelne[-1], "Dolna granica (95%)"])
