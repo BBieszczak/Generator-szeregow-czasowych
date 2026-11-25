@@ -21,7 +21,15 @@
 * Match case uruchamia odpowiednią funkcje
 
 ### Trenowanie modelu i generowanie predykcji
+* Przejście do modułu z modelami i uruchmoienie odpowiedniego pliku
+* Generowanie wyniku za pośrednictwem zewnętrznych bibliotek
+* LSTM, GRU i TFT - korzystają z Deep Learningu
+* Przesłanie danych dalej
 
 ### Zapisanie wyników do Excela
-
+* Utworzenie pliku .xlsx zawierającego wartości date, wartości rzeczywsite oraz predykcje
+* Zapisanie pliku .xlsx pod nazwą: model_liczba okresów.xlsx (np. LSTM_5.xlsx, ARIMA_3.xlsx) w folderze szeregi_czasowe
+* Uwaga regresory nie są zapisywane w pliku!
 ### Generowanie wizualizacji
+* Utworzenie pliku .png zawierającego wizualizację wykresu rzeczywsitego oraz predykcji
+* Zapisanie pliku .png pod nazwą: model_liczba okresów.png (np. LSTM_5.png, ARIMA_3.png) w folderze wykresy
