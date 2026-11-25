@@ -3,20 +3,22 @@
 ## Przebieg programu
 
 ### Inicjalizacja i pobranie ustawień
-* Użytkownik uruchamia plik main
-* Użytkownik jest proszony o podanie danych:
-  * Nazwę pliku
-  * Wskazanie odpowienich kolumn
+* Uruchomienie pliku main
+* Pobieranie od użytkownika danych:
+  * Nazwa pliku
+  * Odpowiednie kolumny
   * Występowanie regresorów
-  * Na ile okresów generować prognoze (miesięcy/kwartałów/lat)
+  * Ilość okresów prognozy (miesięcy/kwartałów/lat)
   
 ### Oczyszczenie i budowa struktury
-* Tworzenie wskazanych danych w jedną tabelę
-* Daty są odpowednio przystosowane pod działanie pythona
-* Data staje się indeksem tabeli
-* Program ustala odległość miedzy okresami
+* Łączenie wskazanych danych w jedną tabelę
+* Przystosowanie dat pod działanie biblioteki pandas
+* Ustawienie daty jako indeks tabeli
+* Ostalanie ogległości między okresami
 
 ### Wybór algorytmu i przekierowanie strumienia
+* Wskazanie przez użytkownika jedno z dostępnych modeli
+* Match case uruchamia odpowiednią funkcje
 
 ### Trenowanie modelu i generowanie predykcji
 
