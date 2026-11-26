@@ -1,5 +1,6 @@
 import openpyxl  # noqa: F401 - wymagane dla PyInstaller przy dynamicznym imporcie w pandas
 import pandas as pd
+from openpyxl.utils import column_index_from_string
 from pliki_operacje.wyjatki import poprawnosc_nazwy_pliku, wartosc_kolumny
 
 
@@ -29,7 +30,10 @@ def zapytaj_o_dane():
 # --- 2. BUDOWANIE I CZYSZCZENIE SZEREGU ---
 def buduj_szereg_historyczny(sciezka, czas, y, regresory, jednostka):
     kolumny = [czas, y] + regresory
-    df = pd.concat([pd.read_excel(sciezka, usecols=k, engine="openpyxl") for k in kolumny], axis=1)
+    unikalne_posortowane = sorted(set(kolumny), key=column_index_from_string)
+    df_raw = pd.read_excel(sciezka, usecols=",".join(unikalne_posortowane), engine="openpyxl")
+    indeks_w_df = {kol: i for i, kol in enumerate(unikalne_posortowane)}
+    df = df_raw.iloc[:, [indeks_w_df[k] for k in kolumny]].copy()
     nazwa_czasu = df.columns[0]
 
     # Parsowanie daty

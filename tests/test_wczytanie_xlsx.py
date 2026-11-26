@@ -27,6 +27,20 @@ def test_buduj_szereg_historyczny(mock_excel):
     assert df.index.freqstr == "MS"
 
 
+def test_buduj_szereg_historyczny_odwrocona_kolejnosc_kolumn(tmp_path):
+    sciezka = tmp_path / "kolejnosc.xlsx"
+    pd.DataFrame({
+        "X": [10.0, 20.0],
+        "Y": [100.0, 200.0],
+        "Data": ["2020M01", "2020M02"],
+    }).to_excel(sciezka, index=False)
+
+    df = buduj_szereg_historyczny(sciezka, "C", "B", ["A"], "M")
+    assert list(df.columns) == ["Y", "X"]
+    assert df["Y"].tolist() == [100.0, 200.0]
+    assert df["X"].tolist() == [10.0, 20.0]
+
+
 def test_wprowadz_przyszle_regresory():
     daty = pd.date_range("2020-01-01", periods=3, freq="MS")
     df = pd.DataFrame({"Y": [1, 2, 3], "X": [10, 20, 30]}, index=daty)

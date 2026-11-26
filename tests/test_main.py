@@ -16,9 +16,9 @@ def test_main_arima_sukces():
 
     with patch("main.wybor_kolumn", return_value=(df, None, 1)):
         with patch("builtins.input", return_value="arima"):
-            with patch("main.prognozuj_arima", return_value=prognoza) as mock_arima:
-                with patch("main.zapisz_prognoze") as mock_zapis_prog:
-                    with patch("main.zapisz_wykres") as mock_zapis_wyk:
+            with patch("modele.ARIMA.prognozuj_arima", return_value=prognoza) as mock_arima:
+                with patch("pliki_operacje.zapis_xlsx.zapisz_prognoze") as mock_zapis_prog:
+                    with patch("pliki_operacje.generowanie_wykresu.zapisz_wykres") as mock_zapis_wyk:
                         main()
                         mock_arima.assert_called_once()
                         mock_zapis_prog.assert_called_once()
@@ -31,9 +31,9 @@ def test_main_wybor_numerem():
 
     with patch("main.wybor_kolumn", return_value=(df, None, 1)):
         with patch("builtins.input", return_value="2"):  # 2 = ARDL
-            with patch("main.prognozuj_ardl", return_value=prognoza) as mock_ardl:
-                with patch("main.zapisz_prognoze") as mock_zapis:
-                    with patch("main.zapisz_wykres"):
+            with patch("modele.ARDL.prognozuj_ardl", return_value=prognoza) as mock_ardl:
+                with patch("pliki_operacje.zapis_xlsx.zapisz_prognoze") as mock_zapis:
+                    with patch("pliki_operacje.generowanie_wykresu.zapisz_wykres"):
                         main()
                         mock_ardl.assert_called_once()
                         mock_zapis.assert_called_once_with(df, prognoza, "ARDL", 1)
