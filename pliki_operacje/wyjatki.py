@@ -1,4 +1,5 @@
 from pathlib import Path
+from .sciezki import katalog_bazowy
 
 
 def wartosc_kolumny(kolumna: str) -> None:
@@ -12,16 +13,17 @@ def wartosc_kolumny(kolumna: str) -> None:
         raise ValueError("Oznaczenie kolumny jest nieprawidlowe! Powinienes wpisac np. C, AA lub E")
 
 # Ścieżka do folderu pliki_do_wczytania
-FOLDER_Z_PLIKAMI = Path(__file__).resolve().parent.parent / "pliki_do_wczytania"
+FOLDER_Z_PLIKAMI = katalog_bazowy() / "pliki_do_wczytania"
 
 
 def poprawnosc_nazwy_pliku(nazwa_pliku: str) -> Path:
     if not nazwa_pliku.endswith(".xlsx"):
         raise ValueError("Plik musi mieć rozszerzenie .xlsx")
 
+    FOLDER_Z_PLIKAMI.mkdir(parents=True, exist_ok=True)
     sciezka = FOLDER_Z_PLIKAMI / nazwa_pliku
 
     if not sciezka.is_file():
-        raise FileNotFoundError(f"Nie znaleziono pliku '{nazwa_pliku}' w folderze '{FOLDER_Z_PLIKAMI.name}'")
+        raise FileNotFoundError(f"Nie znaleziono pliku '{nazwa_pliku}' w folderze '{FOLDER_Z_PLIKAMI}'")
 
     return sciezka

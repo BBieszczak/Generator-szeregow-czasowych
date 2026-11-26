@@ -1,8 +1,9 @@
+import openpyxl  # noqa: F401 - wymagane dla PyInstaller przy dynamicznym imporcie w pandas
 import pandas as pd
-from pathlib import Path
 from .przedzial_ufnosci import oblicz_przedzial_ufnosci
+from .sciezki import katalog_bazowy
 
-FOLDER_ZAPISU = Path(__file__).resolve().parent.parent / "szeregi_czasowe"
+FOLDER_ZAPISU = katalog_bazowy() / "szeregi_czasowe"
 
 
 def zapisz_prognoze(
@@ -38,7 +39,7 @@ def zapisz_prognoze(
     nazwa_pliku = f"{nazwa_modelu}_{horyzont}.xlsx"
     sciezka = FOLDER_ZAPISU / nazwa_pliku
 
-    FOLDER_ZAPISU.mkdir(exist_ok=True)
-    wynik.to_excel(sciezka, index_label="Data")
+    FOLDER_ZAPISU.mkdir(parents=True, exist_ok=True)
+    wynik.to_excel(sciezka, index_label="Data", engine="openpyxl")
 
     print(f"\n[Zapis] Pomyślnie utworzono plik z pełną predykcją: {sciezka}")

@@ -1,10 +1,13 @@
+import matplotlib
+
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pandas as pd
-from pathlib import Path
 from .przedzial_ufnosci import oblicz_przedzial_ufnosci
+from .sciezki import katalog_bazowy
 
 # Folder docelowy na wykresy
-FOLDER_ZAPISU = Path(__file__).resolve().parent.parent / "wykresy"
+FOLDER_ZAPISU = katalog_bazowy() / "wykresy"
 
 
 def zapisz_wykres(
@@ -55,7 +58,7 @@ def zapisz_wykres(
     nazwa_pliku = f"{nazwa_modelu}_{horyzont}.png"
     sciezka = FOLDER_ZAPISU / nazwa_pliku
 
-    FOLDER_ZAPISU.mkdir(exist_ok=True)
+    FOLDER_ZAPISU.mkdir(parents=True, exist_ok=True)
     plt.savefig(sciezka, dpi=300)
     plt.close()
 
